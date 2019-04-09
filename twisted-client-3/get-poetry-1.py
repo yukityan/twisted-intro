@@ -31,7 +31,7 @@ for that to work.
     _, addresses = parser.parse_args()
 
     if not addresses:
-        print parser.format_help()
+        print(parser.format_help())
         parser.exit()
 
     def parse_address(addr):
@@ -46,7 +46,7 @@ for that to work.
 
         return host, int(port)
 
-    return map(parse_address, addresses)
+    return list(map(parse_address, addresses))
 
 
 class PoetryProtocol(Protocol):
@@ -108,7 +108,7 @@ def poetry_main():
         poem_done()
 
     def poem_failed(err):
-        print >>sys.stderr, 'Poem failed:', err
+        print('Poem failed:', err, file=sys.stderr)
         errors.append(err)
         poem_done()
 
@@ -123,7 +123,7 @@ def poetry_main():
     reactor.run()
 
     for poem in poems:
-        print poem
+        print(poem)
 
 
 if __name__ == '__main__':

@@ -69,7 +69,7 @@ def main():
     port = reactor.listenTCP(options.port or 0, factory,
                              interface=options.iface)
 
-    print 'Serving %s on %s.' % (poetry_file, port.getHost())
+    print('Serving %s on %s.' % (poetry_file, port.getHost()))
 
     reactor.run()
 

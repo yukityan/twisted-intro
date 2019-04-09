@@ -32,7 +32,7 @@ ports for that to work.
     _, addresses = parser.parse_args()
 
     if len(addresses) < 2:
-        print parser.format_help()
+        print(parser.format_help())
         parser.exit()
 
     def parse_address(addr):
@@ -47,7 +47,7 @@ ports for that to work.
 
         return host, int(port)
 
-    return map(parse_address, addresses)
+    return list(map(parse_address, addresses))
 
 
 class PoetryProtocol(Protocol):
@@ -161,19 +161,19 @@ def poetry_main():
     def get_transformed_poem(host, port):
         try:
             poem = yield get_poetry(host, port)
-        except Exception, e:
-            print >>sys.stderr, 'The poem download failed:', e
+        except Exception as e:
+            print('The poem download failed:', e, file=sys.stderr)
             raise
 
         try:
             poem = yield proxy.xform('cummingsify', poem)
         except Exception:
-            print >>sys.stderr, 'Cummingsify failed!'
+            print('Cummingsify failed!', file=sys.stderr)
 
         defer.returnValue(poem)
 
     def got_poem(poem):
-        print poem
+        print(poem)
 
     ds = []
 
